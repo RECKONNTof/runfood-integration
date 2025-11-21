@@ -48,6 +48,14 @@ def make_http_request(
         # Verificar que la respuesta sea exitosa (códigos 2xx)
         response.raise_for_status()
         return response.json()
+    except requests.exceptions.HTTPError as e:
+        print(f"Error HTTP: {e}")
+        try:
+            error_content = response.json()
+            print(f"Respuesta del servidor: {error_content}")
+        except ValueError:
+            print(f"Respuesta del servidor (texto): {response.text}")
+        return None
     except requests.exceptions.RequestException as e:
         print(f"Error al realizar la petición HTTP: {e}")
         return None
