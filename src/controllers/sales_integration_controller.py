@@ -103,7 +103,12 @@ def send_sales_to_server(
         response = make_http_request(
             url=url,
             method="POST",
-            data=sales_data,
+            data={
+                'fechaDesde': start_date,
+                'fechaHasta': end_date,
+                'numParte': 1,
+                'detalleVentas': sales_data
+            },
             headers=headers
         )
         
