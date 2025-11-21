@@ -70,11 +70,17 @@ def get_and_process_sales(start_date: str, end_date: str) -> Optional[Dict[str, 
         }
 
 
-def send_sales_to_server(sales_data: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+def send_sales_to_server(
+    start_date: str,
+    end_date: str,
+    sales_data: Dict[str, Any]
+    ) -> Optional[Dict[str, Any]]:
     """
     Envía los datos consolidados de ventas al servidor Reckonnt.
     
     Args:
+        start_date: Fecha de inicio del rango de ventas.
+        end_date: Fecha de fin del rango de ventas.
         sales_data: Datos de ventas consolidados a enviar.
     
     Returns:
@@ -83,7 +89,8 @@ def send_sales_to_server(sales_data: Dict[str, Any]) -> Optional[Dict[str, Any]]
     try:
         # Obtener la URL del servidor desde las variables de entorno
         server_url = EnvVariables.get_variable("RECKONNT_SALE_API_URL")
-        
+        token = EnvVariables.get_variable("TOKEN")
+        url = server_url.replace('__fecha_desde__', start_date).replace('__fecha_hasta__', end_date).replace('__token__', token)
         # Configurar las cabeceras
         headers = {
             "Content-Type": "application/json",
@@ -94,7 +101,7 @@ def send_sales_to_server(sales_data: Dict[str, Any]) -> Optional[Dict[str, Any]]
         # Enviar los datos al servidor
         print("Enviando datos al servidor...")
         response = make_http_request(
-            url=server_url,
+            url=url,
             method="POST",
             data=sales_data,
             headers=headers

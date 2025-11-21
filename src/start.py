@@ -37,7 +37,7 @@ def main():
         
         if sales_data:
             # Enviar los datos al servidor
-            result = send_sales_to_server(sales_data)
+            result = send_sales_to_server(start_date, end_date, sales_data)
             
             if result:
                 print("\n✓ Proceso completado exitosamente")
