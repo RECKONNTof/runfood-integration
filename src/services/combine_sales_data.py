@@ -51,6 +51,9 @@ def combine_sales_data(
                 'descuentoTotal': venta_forma_pago.get('descuentoTotal'),
                 'usuario': venta_forma_pago.get('Usuario'),
                 'tipoIdentificacion': venta_forma_pago.get('TipoIdentificacion'),
+                'numEstablecimiento': venta_forma_pago.get('serie1'),
+                'numSerie': venta_forma_pago.get('serie2'),
+                'numCorrelativo': venta_forma_pago.get('numero'),
                 'detalleFp': [],
                 'detalleVenta': []
             }
