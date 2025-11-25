@@ -30,6 +30,9 @@ def combine_sales_data(
     
     # Iterar sobre las ventas del reporte de formas de pago
     for venta_forma_pago in ventas_formas_pago:
+        # Ignora el estado NOTA DE CREDITO (anulada)
+        if venta_forma_pago.get('Estado') == 'NOTA CREDITO':
+            continue
         # Genera el numero de factura
         invoice_number = f"{venta_forma_pago.get('serie1')}-{venta_forma_pago.get('serie2')}-{venta_forma_pago.get('numero')}"
         # Buscar si ya existe una venta consolidada con el mismo número y serie
